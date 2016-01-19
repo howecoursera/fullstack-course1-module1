@@ -11,6 +11,8 @@
 # https://www.digitalocean.com/community/tutorials/how-to-install-ruby-on-rails-with-rbenv-on-ubuntu-14-04
 # we will mix into the instructions.
 
+set -o verbose
+
 #exit if we encounter an error
 set -e
 
@@ -37,7 +39,7 @@ set +e
 source ~/.bashrc
 set -e
 echo $RECIPEPUPPY_HOSTPORT
-chrome http://$RECIPEPUPPY_HOSTPORT
+#chrome http://$RECIPEPUPPY_HOSTPORT
 
 #add ~/.rbenv to your $PATH for access to rbenv command-line utility
 echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
@@ -94,7 +96,9 @@ sudo apt-get install -y nodejs
 
 #install phantomJS
 sudo apt-get install -y bzip2
-export PHANTOM_JS="phantomjs-1.9.8-linux-x86_64"
+#export PHANTOM_JS="phantomjs-1.9.8-linux-x86_64"
+# http://stackoverflow.com/a/106399
+export PHANTOM_JS="phantomjs-1.9.8-linux-"$(uname -m)
 cd /tmp
 curl -L https://bitbucket.org/ariya/phantomjs/downloads/$PHANTOM_JS.tar.bz2 | tar xvjf -
 sudo mv $PHANTOM_JS /usr/local/share
@@ -103,13 +107,17 @@ phantomjs --version
 
 
 #install sablime text
-cd /tmp
-curl http://c758482.r82.cf2.rackcdn.com/Sublime%20Text%202.0.2%20x64.tar.bz2 | tar -xjf -
+# cd /tmp
+# curl http://c758482.r82.cf2.rackcdn.com/Sublime%20Text%202.0.2%20x64.tar.bz2 | tar -xjf -
+# sudo mv 'Sublime Text 2' /opt/SublimeText2
+# echo export PATH='$PATH:/opt/SublimeText2' >> ~/.bashrc
+curl https://download.sublimetext.com/Sublime%20Text%202.0.2.tar.bz2 | tar -xjf -
 sudo mv 'Sublime Text 2' /opt/SublimeText2
 echo export PATH='$PATH:/opt/SublimeText2' >> ~/.bashrc
 
 
 #inspect installation
+sudo apt-get install -y tree
 tree ~/ -L 1
 tree ~/.rbenv -L 1
 
